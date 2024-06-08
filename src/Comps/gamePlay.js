@@ -105,7 +105,7 @@ export default function GamePlay() {
                         margin={'1rem'}
                         boxSizing={'border-box'}
                     >{playedData.diceTwo}</Box></Box>
-                <p>{playedData.amountWon === 0 ? <h4>You Lost</h4> : <><h4>Amount Won :</h4> {playedData.amountWon}</>}</p>
+                <p>{playedData.amountWon === 0 ? <h4 style={{color:'red'}}>You Lost </h4> : <><h4 style={{color:'green'}}>You Won :</h4> {playedData.amountWon}</>}</p>
                 <p><h4>Total Amount now :</h4> {playedData.amount}</p>
                 <Button endIcon={<RestartAlt />} onClick={playAgain} variant='contained'>Play Again </Button>
             </Box> : <Box
