@@ -15,7 +15,6 @@ export default function GamePlay() {
         diceOne: 0,
         diceTwo: 0,
         amount: user.points,
-        username: user.username,
         amountWon: 0
     })
     const [gamePlayed, setGamePlayed] = useState(false)
@@ -23,6 +22,7 @@ export default function GamePlay() {
     const [choice, setchoice] = useState({
         amount: 0,
         points: user.points,
+        username: user.username,
         option: ''
     })
 
@@ -40,6 +40,7 @@ export default function GamePlay() {
                 setchoice({
                     amount: 0,
                     option: "",
+                    username: user.username,
                     points: res.data.amount
                 })
                 setGamePlayed(true)
