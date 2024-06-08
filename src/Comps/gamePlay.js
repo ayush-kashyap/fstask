@@ -137,10 +137,10 @@ export default function GamePlay() {
                                     aria-labelledby="radio-buttons-group-label"
                                     name="radio-buttons-group"
                                 >
-                                    {user.points<100?<h5 style={{color:'red'}}>Not enough balance to play the game</h5>:null}
-                                    <FormControlLabel value="100" control={<Radio />} label="100" disabled={user.points>=100?"":"a"}/>
-                                    <FormControlLabel value="200" control={<Radio />} label="200" disabled={user.points>=200?"":"a"}/>
-                                    <FormControlLabel value="500" control={<Radio />} label="500" disabled={user.points>=500?"":"a"}/>
+                                    {choice.points<100?<h5 style={{color:'red'}}>Not enough balance to play the game</h5>:null}
+                                    <FormControlLabel value="100" control={<Radio />} label="100" disabled={choice.points>=100?"":"a"}/>
+                                    <FormControlLabel value="200" control={<Radio />} label="200" disabled={choice.points>=200?"":"a"}/>
+                                    <FormControlLabel value="500" control={<Radio />} label="500" disabled={choice.points>=500?"":"a"}/>
                                 </RadioGroup>
                             </>}
                     </FormControl>
