@@ -1,22 +1,22 @@
 import React, { useRef, useState } from 'react'
 import { Box, FormControl, RadioGroup, FormLabel, FormControlLabel, Radio, Button, CircularProgress } from '@mui/material'
 import ChevronLeft from '@mui/icons-material/ChevronLeft'
-import  RestartAlt  from '@mui/icons-material/RestartAlt'
+import RestartAlt from '@mui/icons-material/RestartAlt'
 import Axios from 'axios'
 import Loading from './Loading'
 import { useNavigate } from 'react-router-dom'
 import { useMyOwnContext } from '../ContextAPI/UserContext'
 
 export default function GamePlay() {
-    const {user}=useMyOwnContext()
-    const [property,setProperty]=useState('none')
+    const { user } = useMyOwnContext()
+    const [property, setProperty] = useState('none')
     const Navi = useNavigate()
     const [playedData, setPlayedData] = useState({
         diceOne: 0,
         diceTwo: 0,
         amount: user.points,
-        username:user.username,
-    amountWon: 0
+        username: user.username,
+        amountWon: 0
     })
     const [gamePlayed, setGamePlayed] = useState(false)
     const [selectedAmount, setselectedAmount] = useState(false)
@@ -37,13 +37,17 @@ export default function GamePlay() {
                     amount: res.data.amount,
                     amountWon: res.data.gained
                 })
-                setchoice({ ...choice, points: res.data.amount })
+                setchoice({
+                    amount: 0,
+                    option: "",
+                    points: res.data.amount
+                })
                 setGamePlayed(true)
             }).catch(err => { alert("Some Error Occured") })
-            setProperty('none')
         }
         else
             alert("Missing Option")
+        setProperty('none')
     }
     const selectOption = (e) => {
         setchoice({ ...choice, option: e.target.value })
@@ -58,7 +62,7 @@ export default function GamePlay() {
     }
     return (
         <>
-            <Loading property={property} msg="Rolling Dices..."/>
+            <Loading property={property} msg="Rolling Dices..." />
             <Button size='large' onClick={() => {
                 if (selectedAmount)
                     setselectedAmount(false)
@@ -73,29 +77,36 @@ export default function GamePlay() {
                 height={'80vh'}
                 width='100vw'
             >
-                <><Box
-                height={"10vh"}
-                width={"10vh"}
-                display={'flex'}
-                alignItems={'center'}
-                justifyContent={'center'}
-                border={'1px solid black'}
-                margin={'1rem'}
-                boxSizing={'border-box'}
-                >{playedData.diceOne}</Box>
+                <h2>Dices</h2>
                 <Box
-                height={"10vh"}
-                width={"10vh"}
-                display={'flex'}
-                alignItems={'center'}
-                justifyContent={'center'}
-                border={'1px solid black'}
-                margin={'1rem'}
-                boxSizing={'border-box'}
-                >{playedData.diceTwo}</Box></>
-                <p><h4>Amount Won :</h4> {playedData.amountWon}</p>
+                    display={'flex'}
+                    alignItems={'center'}
+                    justifyContent={'center'}
+                >
+
+                    <Box
+                        height={"10vh"}
+                        width={"10vh"}
+                        display={'flex'}
+                        alignItems={'center'}
+                        justifyContent={'center'}
+                        border={'1px solid black'}
+                        margin={'1rem'}
+                        boxSizing={'border-box'}
+                    >{playedData.diceOne}</Box>
+                    <Box
+                        height={"10vh"}
+                        width={"10vh"}
+                        display={'flex'}
+                        alignItems={'center'}
+                        justifyContent={'center'}
+                        border={'1px solid black'}
+                        margin={'1rem'}
+                        boxSizing={'border-box'}
+                    >{playedData.diceTwo}</Box></Box>
+                <p>{playedData.amountWon === 0 ? <h4>You Lost</h4> : <><h4>Amount Won :</h4> {playedData.amountWon}</>}</p>
                 <p><h4>Total Amount now :</h4> {playedData.amount}</p>
-                <Button endIcon={<RestartAlt/>} onClick={playAgain} variant='contained'>Play Again </Button>
+                <Button endIcon={<RestartAlt />} onClick={playAgain} variant='contained'>Play Again </Button>
             </Box> : <Box
                 display={'flex'}
                 height={"80vh"}
@@ -115,9 +126,9 @@ export default function GamePlay() {
                                     name="radio-buttons-group"
                                 >
 
-                                    <FormControlLabel value="above" control={<Radio />} label="7 Above" />
+                                    <FormControlLabel value="above" control={<Radio />} label="7 Up" />
                                     <FormControlLabel value="lucky" control={<Radio />} label="Lucky 7" />
-                                    <FormControlLabel value="below" control={<Radio />} label="7 Below" />
+                                    <FormControlLabel value="below" control={<Radio />} label="7 Down" />
                                 </RadioGroup></> : <>
                                 <FormLabel required><h3>Select an Amount from below</h3></FormLabel>
                                 <RadioGroup onChange={selectAmount}
@@ -130,7 +141,7 @@ export default function GamePlay() {
                                 </RadioGroup>
                             </>}
                     </FormControl>
-                    {selectedAmount && <Button variant='contained' type='submit'>Submit</Button>}
+                    {selectedAmount && <Button variant='contained' type='submit'>Roll Dice</Button>}
                 </form>
             </Box>}
         </>
