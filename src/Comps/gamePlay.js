@@ -30,7 +30,7 @@ export default function GamePlay() {
         e.preventDefault()
         setProperty('flex')
         if (choice.amount !== "" && choice.option !== "") {
-            await Axios.post("https://fstask-backend.vercel.app/get/numbers", choice).then((res) => {
+            await Axios.put("https://fstask-backend.vercel.app/get/numbers", choice).then((res) => {
                 setPlayedData({
                     diceOne: res.data.numbers.first,
                     diceTwo: res.data.numbers.second,
@@ -94,7 +94,8 @@ export default function GamePlay() {
                         border={'1px solid black'}
                         margin={'1rem'}
                         boxSizing={'border-box'}
-                    >{playedData.diceOne}</Box>
+                    >
+                        {playedData.diceOne}</Box>
                     <Box
                         height={"10vh"}
                         width={"10vh"}
@@ -105,7 +106,7 @@ export default function GamePlay() {
                         margin={'1rem'}
                         boxSizing={'border-box'}
                     >{playedData.diceTwo}</Box></Box>
-                <p>{playedData.amountWon === 0 ? <h4 style={{color:'red'}}>You Lost </h4> : <><h4 style={{color:'green'}}>You Won :</h4> {playedData.amountWon}</>}</p>
+                <p>{playedData.amountWon === 0 ? <h4 style={{ color: 'red' }}>You Lost </h4> : <><h4 style={{ color: 'green' }}>You Won :</h4> {playedData.amountWon}</>}</p>
                 <p><h4>Total Amount now :</h4> {playedData.amount}</p>
                 <Button endIcon={<RestartAlt />} onClick={playAgain} variant='contained'>Play Again </Button>
             </Box> : <Box
